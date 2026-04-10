@@ -1,0 +1,27 @@
+ASSUMPTIONS
+===========
+
+1. I assume the user will enter instructions that are relevant to the Titanic dataset.
+
+2. I only use models that are compatible with the scikit-learn library (except XGBoost which has a sklearn-compatible API).
+
+3. The target column is always "Survived" since we are building a binary classifier.
+
+4. The columns Name, Ticket, Cabin and PassengerId are always removed because they are not useful for training — for example, a passenger's name has no impact on whether they survived.
+
+5. All text columns (e.g. Sex: male/female) are automatically encoded into numbers since ML models cannot work with raw text.
+
+6. If the user does not specify how to handle missing values, numeric columns are filled with the median and rows where Survived is missing are dropped.
+
+7. If the user does not specify which columns to use, all available columns are used (except the ones mentioned above).
+
+8. If the user requests a model that is not supported, the script defaults to LogisticRegression.
+
+9. If no hyperparameters are specified, sklearn default values are used.
+
+10. The LLM (Claude Haiku) is used only to interpret the user instruction and generate a JSON plan. It does not train the model or process the data directly.
+
+11. Error handling is intentionally kept simple — the focus is on demonstrating the AI agent concept.
+
+12. The dataset was downloaded from:
+    https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv

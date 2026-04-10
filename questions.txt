@@ -1,0 +1,9 @@
+1. What changes would you make to make this work for any dataset, not just Titanic?
+To make this work for any dataset, I would not hardcode the column names in the system prompt. Instead, they could be read directly from the loaded DataFrame and dynamically passed to the LLM. The user would also need to specify which column is the target.
+
+2. What would be different if this was a solution where instructions are received in a chat (for example “Drop 
+the Age feature” followed by “Now train the model”) instead of a single instruction?
+In a chat format, it would be necessary to maintain a conversation history — a list of all previous messages. Each new LLM call would include the entire history, so the LLM knows what was said earlier. In addition, the plan (JSON) would need to be updated incrementally — for example, the first message drops a column, the second adds a model — instead of generating the entire plan all at once.
+
+3. How would you enable EDA features such as “What is the mean age of all females on board under 25”?
+The user asks a question about the data. The LLM converts that question into pandas code. The script then executes that code on the dataset and prints the result to the user.
