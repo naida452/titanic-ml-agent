@@ -16,7 +16,7 @@ def preprocess(df: pd.DataFrame, plan: dict) -> pd.DataFrame:
     always_drop = ["Name", "Ticket", "Cabin", "PassengerId"]
     df = df.drop(columns=[c for c in always_drop if c in df.columns], errors="ignore")
     
-    # Handle missing values
+    # Missing values
     if plan.get("drop_na"):
         df = df.dropna()
     elif plan.get("fill_na"):
@@ -30,7 +30,7 @@ def preprocess(df: pd.DataFrame, plan: dict) -> pd.DataFrame:
                 elif strategy == "mode":
                     df[col] = df[col].fillna(df[col].mode()[0])
     else:
-        # Default: fill numeric with median, drop rows where Survived is missing
+       
         df = df.dropna(subset=["Survived"])
         for col in df.columns:
             if df[col].isnull().any():
@@ -39,7 +39,7 @@ def preprocess(df: pd.DataFrame, plan: dict) -> pd.DataFrame:
                 else:
                     df[col] = df[col].fillna(df[col].mode()[0])
     
-    # Always encode all text columns
+
     for col in df.columns:
         if df[col].dtype == "object" and col != "Survived":
             df[col] = pd.Categorical(df[col]).codes
