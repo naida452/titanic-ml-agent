@@ -20,7 +20,7 @@ MODELS = {
 }
 
 def train_and_evaluate(df: pd.DataFrame, plan: dict) -> str:
-    # Fill any remaining NA values before training
+
     for col in df.columns:
         if df[col].isnull().any():
             if df[col].dtype in ["float64", "int64"]:
@@ -28,7 +28,6 @@ def train_and_evaluate(df: pd.DataFrame, plan: dict) -> str:
             else:
                 df[col] = df[col].fillna(df[col].mode()[0])
 
-    # Convert all columns to numeric
     for col in df.columns:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
 
